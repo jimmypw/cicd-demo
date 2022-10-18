@@ -1,3 +1,64 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mattermost-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: nfs-client
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mattermost-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: nfs-client
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mattermost-plugins
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: nfs-client
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mattermost-client-plugins
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: nfs-client
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mattermost-bleve-indexes
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: nfs-client
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,5 +78,36 @@ spec:
         app: mattermost
     spec:
       containers:
-      - image: mattermost/mattermost-tem-edition:release-7.3
+      - image: mattermost/mattermost-team-edition:release-7.3
         name: mattermost
+        volumeMounts:
+        - mountPath: "/mattermost/config"
+          name: mattermost-config
+        - mountPath: "/mattermost/data"
+          name: mattermost-data
+        - mountPath: "/mattermost/plugins"
+          name: mattermost-plugins
+        - mountPath: "/mattermost/client/plugins"
+          name: mattermost-client-plugins
+        - mountPath: "/mattermost/bleve-indexes"
+          name: mattermost-bleve-indexes
+        - mountPath: "/mattermost/logs"
+          name: mattermost-logs
+      volumes:
+      - name: mattermost-config
+        persistentVolumeClaim:
+          claimName: mattermost-config
+      - name: mattermost-data
+        persistentVolumeClaim:
+          claimName: mattermost-data
+      - name: mattermost-plugins
+        persistentVolumeClaim:
+          claimName: mattermost-plugins
+      - name: mattermost-client-plugins
+        persistentVolumeClaim:
+          claimName: mattermost-client-plugins
+      - name: mattermost-bleve-indexes
+        persistentVolumeClaim:
+          claimName: mattermost-bleve-indexes
+      - name: mattermost-logs
+        emptyDir: {}
