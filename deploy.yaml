@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: hello-world
+  name: hello-world
+  namespace: jpw
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
