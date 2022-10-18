@@ -21,4 +21,4 @@ after_pipeline:
         commands: []
 promotions:
   - name: Preprod
-    pipeline_file: pipeline_2.yml
+    pipeline_file: preprod.yml

@@ -14,3 +14,6 @@ blocks:
             - kubectl apply -n jpw-preprod -f deploy.yaml
       secrets:
         - name: k8s-jpw-kubeconfig
+promotions:
+  - name: Production
+    pipeline_file: production.yml
