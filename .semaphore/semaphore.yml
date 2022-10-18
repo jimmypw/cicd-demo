@@ -5,17 +5,12 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Checkout
-    task:
-      jobs:
-        - name: Git Clone
-          commands:
-            - checkout
   - name: Lint
     task:
       jobs:
         - name: Kubectl Dry Run
           commands:
+            - checkout
             - kubectl apply -f deploy.yaml --dry-run=client
       secrets:
         - name: k8s-jpw-kubeconfig
