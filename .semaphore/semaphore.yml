@@ -1,5 +1,5 @@
 version: v1.0
-name: Preample
+name: Build
 agent:
   machine:
     type: e1-standard-2
@@ -19,3 +19,6 @@ after_pipeline:
     jobs:
       - name: 'Job #1'
         commands: []
+promotions:
+  - name: Preprod
+    pipeline_file: pipeline_2.yml
