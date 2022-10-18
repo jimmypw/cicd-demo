@@ -1,13 +1,24 @@
 version: v1.0
-name: Initial Pipeline
+name: Preample
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: 'Block #1'
+  - name: Checkout
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Git Clone
           commands:
             - checkout
+  - name: Lint
+    task:
+      jobs:
+        - name: Kubectl Dry Run
+          commands:
+            - kubectl apply -f deploy.yaml --dry-run=client
+after_pipeline:
+  task:
+    jobs:
+      - name: 'Job #1'
+        commands: []
