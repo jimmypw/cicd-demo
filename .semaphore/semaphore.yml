@@ -17,6 +17,8 @@ blocks:
         - name: Kubectl Dry Run
           commands:
             - kubectl apply -f deploy.yaml --dry-run=client
+      secrets:
+        - name: k8s-jpw-kubeconfig
 after_pipeline:
   task:
     jobs:
