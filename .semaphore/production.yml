@@ -12,3 +12,5 @@ blocks:
           commands:
             - checkout
             - kubectl apply -n jpw -f deploy.yaml
+      secrets:
+        - name: k8s-jpw-kubeconfig
