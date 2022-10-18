@@ -8,11 +8,9 @@ blocks:
   - name: Kubectl Apply
     task:
       jobs:
-        - name: checkout
+        - name: apply
           commands:
             - checkout
-        - name: kubectl apply
-          commands:
             - kubectl apply -n jpw-preprod -f deploy.yaml
       secrets:
         - name: k8s-jpw-kubeconfig
