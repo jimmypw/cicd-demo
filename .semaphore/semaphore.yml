@@ -12,6 +12,10 @@ blocks:
           commands:
             - checkout
             - kubectl apply -f deploy.yaml --dry-run=client
+            - FOO="baa"
+        - name: 'Job #2'
+          commands:
+            - echo $FOO
       secrets:
         - name: k8s-jpw-kubeconfig
 after_pipeline:
