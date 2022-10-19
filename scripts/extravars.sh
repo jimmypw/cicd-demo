@@ -1,0 +1,9 @@
+export K8S_INGRESS_IP="51.179.232.203"
+export TLD="wire48.net"
+
+if [ "${SEMAPHORE_GIT_BRANCH}" == "main" ]; then
+	DEPLOYMENT_URL="${SEMAPHORE_GIT_REPO_NAME}"
+else
+	DEPLOYMENT_URL="${SEMAPHORE_GIT_BRANCH}.preprod.${SEMAPHORE_GIT_REPO_NAME}"
+fi
+
