@@ -11,9 +11,12 @@ blocks:
         - name: apply
           commands:
             - checkout
-            - kubectl apply -n jpw-preprod -f deploy.yaml
+            - envsubst < deploy.yaml | kubectl apply -f -
       secrets:
         - name: k8s-jpw-kubeconfig
+      prologue:
+        commands:
+          - source scripts/extravars.sh
   - name: DNS
     task:
       secrets:
