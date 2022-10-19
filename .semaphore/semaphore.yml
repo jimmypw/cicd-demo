@@ -14,7 +14,7 @@ blocks:
             - kubectl apply -f deploy.yaml --dry-run=client
         - name: 'Job #2'
           commands:
-            - echo $FOO
+            - env
       secrets:
         - name: k8s-jpw-kubeconfig
       prologue:
