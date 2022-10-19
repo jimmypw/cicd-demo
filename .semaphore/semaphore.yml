@@ -23,3 +23,5 @@ after_pipeline:
 promotions:
   - name: Preprod
     pipeline_file: preprod.yml
+    auto_promote:
+      when: result = 'passed'
