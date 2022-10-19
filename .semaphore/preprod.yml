@@ -16,6 +16,7 @@ blocks:
         - name: k8s-jpw-kubeconfig
       prologue:
         commands:
+          - checkout
           - source scripts/extravars.sh
   - name: DNS
     task:
