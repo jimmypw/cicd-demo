@@ -14,6 +14,17 @@ blocks:
             - kubectl apply -n jpw-preprod -f deploy.yaml
       secrets:
         - name: k8s-jpw-kubeconfig
+  - name: DNS
+    task:
+      secrets:
+        - name: DNS CONFIG
+      prologue:
+        commands:
+          - source scripts/extravars.sh
+      jobs:
+        - name: Configure Gandi DNS
+          commands:
+            - 'scripts/gandi-dns-update.sh ${TLD} ${DEPLOYMENT_URL} ${K8S_INGRESS_IP}'
 promotions:
   - name: Production
     pipeline_file: production.yml
