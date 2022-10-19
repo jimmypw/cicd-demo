@@ -29,7 +29,7 @@ blocks:
       jobs:
         - name: Configure Gandi DNS
           commands:
-            - 'scripts/gandi-dns-update.sh ${TLD} ${DEPLOYMENT_URL} ${K8S_INGRESS_IP}'
+            - 'scripts/gandi-dns-update.sh ${TLD} ${DEPLOYMENT_HOST} ${K8S_INGRESS_IP}'
 promotions:
   - name: Production
     pipeline_file: production.yml
