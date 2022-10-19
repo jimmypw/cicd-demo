@@ -5,20 +5,6 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Kubectl Apply
-    task:
-      jobs:
-        - name: apply
-          commands:
-            - checkout
-            - envsubst < deploy.yaml | kubectl apply -n jpw-preprod -f -
-      secrets:
-        - name: k8s-jpw-kubeconfig
-        - name: preprod db secrets
-      prologue:
-        commands:
-          - checkout
-          - source scripts/extravars.sh
   - name: DNS
     task:
       secrets:
@@ -31,6 +17,23 @@ blocks:
         - name: Configure Gandi DNS
           commands:
             - 'scripts/gandi-dns-update.sh ${TLD} ${DEPLOYMENT_HOST} ${K8S_INGRESS_IP}'
+  - name: Kubectl Apply
+    task:
+      jobs:
+        - name: apply
+          commands:
+            - checkout
+            - envsubst < deploy.yaml | kubectl apply -n jpw-preprod -f -
+      env_vars:
+        - name: ENVIRONMENT
+          value: "PREPROD"
+      secrets:
+        - name: k8s-jpw-kubeconfig
+        - name: preprod db secrets
+      prologue:
+        commands:
+          - checkout
+          - source scripts/extravars.sh
 promotions:
   - name: Production
     pipeline_file: production.yml
