@@ -12,6 +12,9 @@ blocks:
           commands:
             - checkout
             - envsubst < deploy.yaml | kubectl apply -n jpw-preprod -f -
+      env_vars:
+        - name: ENVIRONMENT
+          value: "PREPROD"
       secrets:
         - name: k8s-jpw-kubeconfig
         - name: preprod db secrets
