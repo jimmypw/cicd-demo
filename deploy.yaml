@@ -247,14 +247,14 @@ metadata:
   name: mattermost
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: ${LETSENCRYPT_ISSUER}
 spec:
   tls:
   - hosts:
-    - test.wire48.net
-    secretName: test-wire48-net
+    - ${DEPLOYMENT_URL}
+    secretName: ${DEPLOYMENT_URL}
   rules:
-  - host: test.wire48.net
+  - host: ${DEPLOYMENT_URL}
     http:
       paths:
       - path: /

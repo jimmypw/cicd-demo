@@ -14,6 +14,7 @@ blocks:
             - kubectl apply -f deploy.yaml --dry-run=client
       secrets:
         - name: k8s-jpw-kubeconfig
+        - name: preprod db secrets
 after_pipeline:
   task:
     jobs:
@@ -22,3 +23,5 @@ after_pipeline:
 promotions:
   - name: Preprod
     pipeline_file: preprod.yml
+    auto_promote:
+      when: result = 'passed'
