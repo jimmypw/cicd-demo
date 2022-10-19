@@ -11,8 +11,10 @@ export MM_SQLSETTINGS_DATASOURCE_B64="$(echo -n ${MM_SQLSETTINGS_DATASOURCE} | b
 
 if [ "${SEMAPHORE_GIT_BRANCH}" == "main" ]; then
 	export DEPLOYMENT_HOST="${SEMAPHORE_GIT_REPO_NAME}"
+	export LETSENCRYPT_ISSUER="letsencrypt-prod"
 else
 	export DEPLOYMENT_HOST="${SEMAPHORE_GIT_BRANCH}.preprod.${SEMAPHORE_GIT_REPO_NAME}"
+	export LETSENCRYPT_ISSUER="letsencrypt-staging"
 fi
 
 export DEPLOYMENT_URL="${DEPLOYMENT_HOST}.${TLD}"

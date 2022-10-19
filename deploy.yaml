@@ -247,7 +247,7 @@ metadata:
   name: mattermost
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: ${LETSENCRYPT_ISSUER}
 spec:
   tls:
   - hosts:
