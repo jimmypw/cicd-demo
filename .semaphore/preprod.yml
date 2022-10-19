@@ -24,6 +24,7 @@ blocks:
         - name: DNS CONFIG
       prologue:
         commands:
+          - checkout
           - source scripts/extravars.sh
       jobs:
         - name: Configure Gandi DNS
