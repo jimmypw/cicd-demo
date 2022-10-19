@@ -251,10 +251,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - test.wire48.net
-    secretName: test-wire48-net
+    - ${DEPLOYMENT_URL}
+    secretName: ${DEPLOYMENT_URL}
   rules:
-  - host: test.wire48.net
+  - host: ${DEPLOYMENT_URL}
     http:
       paths:
       - path: /
