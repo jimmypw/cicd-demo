@@ -11,12 +11,12 @@ if [ "${SEMAPHORE_GIT_BRANCH}" == "main" ]; then
 	export DEPLOYMENT_HOST="${SEMAPHORE_GIT_REPO_NAME}"
 	export LETSENCRYPT_ISSUER="letsencrypt-prod"
 	if [ ${ENVIRONMENT} == "PREPROD" ]; then
-		export K8S_RESOURCE_PREFIX="${SEMAPHORE_GIT_BRANCH}-"
+		export K8S_RESOURCE_PREFIX="${SEMAPHORE_GIT_BRANCH//[^[:alnum:]]/_}-"
 	fi
 else
 	export DEPLOYMENT_HOST="${SEMAPHORE_GIT_BRANCH}.preprod.${SEMAPHORE_GIT_REPO_NAME}"
 	export LETSENCRYPT_ISSUER="letsencrypt-staging"
-	export K8S_RESOURCE_PREFIX="${SEMAPHORE_GIT_BRANCH}-"
+	export K8S_RESOURCE_PREFIX="${SEMAPHORE_GIT_BRANCH//[^[:alnum:]]/_}-"
 fi
 
 export DEPLOYMENT_URL="${DEPLOYMENT_HOST}.${TLD}"
