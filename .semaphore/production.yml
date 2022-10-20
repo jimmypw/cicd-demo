@@ -5,12 +5,36 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
+  - name: DNS
+    task:
+      secrets:
+        - name: DNS CONFIG
+      prologue:
+        commands:
+          - checkout
+          - source scripts/extravars.sh
+      jobs:
+        - name: Configure Gandi DNS
+          commands:
+            - 'scripts/gandi-dns-update.sh ${TLD} ${DEPLOYMENT_HOST} ${K8S_INGRESS_IP}'
   - name: Kubectl Apply
     task:
       jobs:
         - name: apply
           commands:
             - checkout
-            - kubectl apply -n jpw -f deploy.yaml
+            - envsubst < deploy.yaml | kubectl apply -n jpw -f -
+            - kubectl -n jpw rollout restart deployment/mattermost
+            - kubectl -n jpw rollout restart deployment/postgres
+      env_vars:
+        - name: ENVIRONMENT
+          value: PROD
+        - name: LETSENCRYPT_ISSUER
+          value: letsencrypt-prod
       secrets:
         - name: k8s-jpw-kubeconfig
+        - name: prod db secrets
+      prologue:
+        commands:
+          - checkout
+          - source scripts/extravars.sh

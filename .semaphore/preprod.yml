@@ -24,9 +24,13 @@ blocks:
           commands:
             - checkout
             - envsubst < deploy.yaml | kubectl apply -n jpw-preprod -f -
+            - kubectl -n jpw-preprod rollout restart deployment/${K8S_RESOURCE_PREFIX}mattermost
+            - kubectl -n jpw-preprod rollout restart deployment/${K8S_RESOURCE_PREFIX}postgres
       env_vars:
         - name: ENVIRONMENT
-          value: "PREPROD"
+          value: PREPROD
+        - name: LETSENCRYPT_ISSUER
+          value: letsencrypt-staging
       secrets:
         - name: k8s-jpw-kubeconfig
         - name: preprod db secrets
@@ -34,6 +38,3 @@ blocks:
         commands:
           - checkout
           - source scripts/extravars.sh
-promotions:
-  - name: Production
-    pipeline_file: production.yml
