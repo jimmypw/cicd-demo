@@ -24,7 +24,7 @@ promotions:
   - name: Push to Pre-Production
     pipeline_file: preprod.yml
     auto_promote:
-      when: result = 'passed' NOT tag =~ '.*'
+      when: result = 'passed' AND tag !~ '.*'
   - name: Push to Production
     pipeline_file: production.yml
     auto_promote:
