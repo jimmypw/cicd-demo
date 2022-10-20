@@ -1,7 +1,9 @@
 #!/bin/bash
 
-if [ ! -d "./dist" ]; then
-	mkdir ./dist
+artifactpath="${SEMAPHORE_GIT_REPO_NAME}-${SEMAPHORE_GIT_TAG_NAME}"
+
+if [ ! -d "${artifactpath}" ]; then
+	mkdir ./${artifactpath}
 fi
 
 IMAGELIST=$(grep image deploy.yaml | sed -E 's/\s+-\ image:\ //g')
@@ -14,8 +16,7 @@ done
 
 envsubst < deploy.yaml > ./dist/deploy.yaml
 
-artifactname="${SEMAPHORE_GIT_REPO_NAME}-${SEMAPHORE_GIT_TAG_NAME}.tar.gz"
 
-tar cfz ${artifactname} ./dist
+tar cfz ${artifactpath}.tar.gz ${artifactpath}
 
-artifact push job ${artifactname}
+artifact push job ${artifactpath}.tar.gz
