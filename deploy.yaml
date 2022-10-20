@@ -112,6 +112,8 @@ metadata:
     app: ${K8S_RESOURCE_PREFIX}postgres
   name: ${K8S_RESOURCE_PREFIX}postgres
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
@@ -145,6 +147,8 @@ metadata:
     app: ${K8S_RESOURCE_PREFIX}mattermost
   name: ${K8S_RESOURCE_PREFIX}mattermost
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
