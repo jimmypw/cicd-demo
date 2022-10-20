@@ -21,7 +21,15 @@ after_pipeline:
       - name: 'Job #1'
         commands: []
 promotions:
-  - name: Preprod
+  - name: Push to Pre-Production
     pipeline_file: preprod.yml
     auto_promote:
       when: result = 'passed'
+  - name: Push to Production
+    pipeline_file: production.yml
+    auto_promote:
+      when: result = 'passed' AND tag =~ '.*'
+  - name: Create Artifacts
+    pipeline_file: artifacts.yml
+    auto_promote:
+      when: result = 'passed' AND tag =~ '.*'
