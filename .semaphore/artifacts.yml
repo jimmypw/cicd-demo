@@ -5,9 +5,12 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: 'Block #1'
+  - name: Create Artifacts
     task:
       jobs:
-        - name: 'Job #1'
+        - name: Build and push artifacts
           commands:
-            - echo "job 1"
+            - 'scripts/build_and_push_artifacts.sh'
+      prologue:
+        commands:
+          - checkout

@@ -24,8 +24,8 @@ blocks:
           commands:
             - checkout
             - envsubst < deploy.yaml | kubectl apply -n jpw-preprod -f -
-            - kubectl -n jpw-preprod rollout restart deployment/${K8S_RESOURCE_PREFIX}mattermost
-            - kubectl -n jpw-preprod rollout restart deployment/${K8S_RESOURCE_PREFIX}postgres
+            - 'kubectl -n jpw-preprod rollout restart deployment/${K8S_RESOURCE_PREFIX}mattermost'
+            - 'kubectl -n jpw-preprod rollout restart deployment/${K8S_RESOURCE_PREFIX}postgres'
       env_vars:
         - name: ENVIRONMENT
           value: PREPROD
