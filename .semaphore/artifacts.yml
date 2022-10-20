@@ -10,7 +10,7 @@ blocks:
       jobs:
         - name: Build and push artifacts
           commands:
-            - 'scripts/build_and_push_artifacts.sh'
+            - scripts/build_and_push_artifacts.sh
       prologue:
         commands:
           - checkout
