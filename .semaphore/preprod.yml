@@ -27,6 +27,8 @@ blocks:
       env_vars:
         - name: ENVIRONMENT
           value: PREPROD
+        - name: LETSENCRYPT_ISSUER
+          value: letsencrypt-staging
       secrets:
         - name: k8s-jpw-kubeconfig
         - name: preprod db secrets
