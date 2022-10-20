@@ -8,6 +8,13 @@ blocks:
   - name: Lint
     task:
       jobs:
+        - name: YAML lint
+          commands:
+            - checkout
+            - yamllint deploy.yaml
+          prologue:
+            commands:
+              - sudo apt install -y yamllint
         - name: Kubectl Dry Run
           commands:
             - checkout
