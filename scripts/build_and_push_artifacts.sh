@@ -11,10 +11,10 @@ IMAGELIST=$(grep image deploy.yaml | sed -E 's/\s+-\ image:\ //g')
 for image in $IMAGELIST; do
 	image_safe="${image//[^[:alnum:]]/-}"
 	docker pull $image
-	docker save $image > ./dist/${image_safe}.tar
+	docker save $image > ./${artifactpath}/${image_safe}.tar
 done
 
-envsubst < deploy.yaml > ./dist/deploy.yaml
+envsubst < deploy.yaml > ./${artifactpath}/deploy.yaml
 
 
 tar cfz ${artifactpath}.tar.gz ${artifactpath}
