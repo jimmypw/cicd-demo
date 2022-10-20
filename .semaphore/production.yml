@@ -24,8 +24,8 @@ blocks:
           commands:
             - checkout
             - envsubst < deploy.yaml | kubectl apply -n jpw -f -
-            - kubectl -n jpw rollout restart mattermost
-            - kubectl -n jpw rollout restart postgres
+            - kubectl -n jpw rollout restart deployment/mattermost
+            - kubectl -n jpw rollout restart deployment/postgres
       env_vars:
         - name: ENVIRONMENT
           value: PROD
