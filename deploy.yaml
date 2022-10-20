@@ -159,7 +159,7 @@ spec:
         app: ${K8S_RESOURCE_PREFIX}mattermost
     spec:
       containers:
-        - image: mattermost/mattermost-team-edition:release-7.3
+        - image: mattermost/mattermost-team-edition:release-7.4
           name: ${K8S_RESOURCE_PREFIX}mattermost
           envFrom:
             - secretRef:
